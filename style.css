@@ -53,7 +53,7 @@ html body {
   align-items: center;
   justify-content: center;
   position: relative;
-  background: url(https://assets.codepen.io/2509128/bg.jpg) center/auto 100% no-repeat;
+  background-color: #a2ddf3;
 }
 #app.gotcha .container .game-layer .machine-container {
   position: relative;
