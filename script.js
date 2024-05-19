@@ -55,7 +55,7 @@ const addAnimClass = ($e, clazz, timing) => {
                 firstDiv.textContent = dollValue;
                 const poolDiv = document.getElementById('pool');
                 poolDiv.textContent = JSON.stringify(otherValues, null, 2);
-				prize = getPrize()
+				prize = getPrize(randomDoll,randomOtherItems);
 				document.querySelector('.prize-container .prize img').src = prize.image
 				console.log(prize)
 
@@ -550,7 +550,7 @@ const stopJittering = async () => {
 }
 
 
-function getPrize(){
+function getPrize(randomDoll,randomOtherItems){
     const lotteryResult = performLottery(randomDoll, randomOtherItems);
     console.log("Lottery Result:", lotteryResult);
 
