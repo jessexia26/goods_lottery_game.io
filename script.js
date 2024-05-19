@@ -566,6 +566,7 @@ function extractItems(xmlDoc) {
     const names = xmlDoc.getElementsByTagName('name');
     const itemsList = [];
 	let img;
+	let img_new;
     for (let i = 0; i < names.length; i++) {
         const name = names[i];
         const value = name.getAttribute('value');
@@ -573,9 +574,16 @@ function extractItems(xmlDoc) {
         const img_full = name.getElementsByTagName('img')[0]?.textContent || null;
 		var index = img_full.indexOf('/150px');
 		if (index !== -1) {
-            img = img_full.slice(0, index);}
+            img_new = img_full.slice(0, index);}
 		else{
-		    img = img_full
+		    img_new = img_full
+		}
+		var indexThumb = img_new.indexOf('thumb');
+        if (indexThumb !== -1) {
+            img = img_new.slice(0, indexThumb) + img_new.slice(indexThumb + 5);
+        }
+		else{
+			img = img_new;
 		}
 		itemsList.push({ value, type, img });
     }
