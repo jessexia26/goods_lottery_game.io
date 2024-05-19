@@ -594,6 +594,7 @@ function getRandomItems(list, count) {
 // Function to perform the lottery with given probabilities
 function performLottery(doll, otherItems) {
     const randomValue = Math.random();
+	console.log("perform",otherItems)
     let selectedItem;
     if (randomValue < 0.02) {
         selectedItem = doll;
