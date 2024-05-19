@@ -578,8 +578,7 @@ function extractItems(xmlDoc) {
 		}
     }
 
-        itemsList.push({ value, type, img });
-
+    itemsList.push({ value, type, img });
     return itemsList;
 }
 
