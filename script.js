@@ -68,6 +68,7 @@ const addAnimClass = ($e, clazz, timing) => {
 const init = async () => {
 	$app = document.querySelector('#app');
 	$app.classList.add('gotcha');
+	loadData();
 	getPrize().then(e => {
 		prize = e;
 		document.querySelector('.prize-container .prize img').src = e.image;
@@ -86,7 +87,6 @@ const init = async () => {
   $machine.querySelector('.price').innerText = PRICE;
   
 	createBalls();
-	loadData();
 
 	gsap.set($machine, {
 		y: '100vh'
