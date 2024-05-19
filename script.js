@@ -565,7 +565,7 @@ function getPrize(randomDoll,randomOtherItems){
 function extractItems(xmlDoc) {
     const names = xmlDoc.getElementsByTagName('name');
     const itemsList = [];
-	const img = null;
+	let img;
     for (let i = 0; i < names.length; i++) {
         const name = names[i];
         const value = name.getAttribute('value');
