@@ -291,11 +291,14 @@ html body {
   }
 }
 
-#pool #first {
+#app.gotcha .container .game-layer .pool{
+  display: none;
+}
+#app.gotcha .container .game-layer .first{
   display: none;
 }
 
-#popup {
+#app.gotcha .container .game-layer .popup{
   display: none;
   position: fixed;
   top: 50%;
