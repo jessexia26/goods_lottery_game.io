@@ -51,7 +51,7 @@ const addAnimClass = ($e, clazz, timing) => {
 
                 // Display the values in the pool div
 				const firstDiv = document.getElementById('first')
-                firstDiv.textContent = JSON.stringify(dollValue, null, 2);
+                firstDiv.textContent = dollValue;
                 firstDiv.style.display = 'block';  // Show the first div
                 const poolDiv = document.getElementById('pool');
                 poolDiv.textContent = JSON.stringify(otherValues, null, 2);
