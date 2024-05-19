@@ -57,6 +57,11 @@ const addAnimClass = ($e, clazz, timing) => {
                 const poolDiv = document.getElementById('pool');
                 poolDiv.textContent = JSON.stringify(otherValues, null, 2);
                 poolDiv.style.display = 'block';  // Show the pool div
+				getPrize().then(e => {
+					prize = e;
+					document.querySelector('.prize-container .prize img').src = e.image;
+				});
+				console.log(prize)
 
             } catch (err) {
                 console.error('Error:', err);
@@ -69,11 +74,6 @@ const init = async () => {
 	$app = document.querySelector('#app');
 	$app.classList.add('gotcha');
 	loadData();
-	getPrize().then(e => {
-		prize = e;
-		document.querySelector('.prize-container .prize img').src = e.image;
-	});
-	console.log("this is prize", prize);
 	const TITLE = '一番赏';
 	const PRICE = '100星';
 
@@ -555,8 +555,6 @@ const stopJittering = async () => {
 
 
 const getPrize = async () => {
-    console.log("Random Doll:", randomDoll);
-    console.log("Random Other Items:", randomOtherItems);
     const lotteryResult = performLottery(randomDoll, randomOtherItems);
     console.log("Lottery Result:", lotteryResult);
 
