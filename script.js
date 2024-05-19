@@ -591,6 +591,7 @@ function filterItems(itemsList) {
     const dollsList = itemsList.filter(item => item.type === "玩偶");
     const otherItemsList = itemsList.filter(item => item.type !== "玩偶");
 	console.log(otherItemsList)
+	console.log(dollsList)
     return { dollsList, otherItemsList };
 }
 
