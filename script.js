@@ -48,12 +48,13 @@ const addAnimClass = ($e, clazz, timing) => {
                 const dollValue = randomDoll ? randomDoll.value : null;
                 const otherValues = randomOtherItems.map(item => item.value);
 
-                // Combine all values into a single list
-                const allValues = dollValue ? [dollValue, ...otherValues] : [...otherValues];
 
                 // Display the values in the pool div
+				const firstDiv = document.getElementById('firstDive')
+                firstDiv.textContent = JSON.stringify(dollValue, null, 2);
+                firstDiv.style.display = 'block';  // Show the first div
                 const poolDiv = document.getElementById('pool');
-                poolDiv.textContent = JSON.stringify(allValues, null, 2);
+                poolDiv.textContent = JSON.stringify(otherValues, null, 2);
                 poolDiv.style.display = 'block';  // Show the pool div
 
             } catch (err) {

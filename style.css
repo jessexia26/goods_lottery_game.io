@@ -291,6 +291,6 @@ html body {
   }
 }
 
-#pool {
+#pool #first {
   display: none;
 }
