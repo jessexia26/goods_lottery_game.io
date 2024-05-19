@@ -570,9 +570,13 @@ function extractItems(xmlDoc) {
         const value = name.getAttribute('value');
         const type = name.getElementsByTagName('type')[0]?.textContent || null;
         const img_full = name.getElementsByTagName('img')[0]?.textContent || null;
-		if (img_full.endsWith('.jpeg')) {
-            const img = img_full.slice(0, -5);
-        }
+        var index = img_full.indexOf('/150px');
+        if (index !== -1) {
+            img = img_full.slice(0, index);
+        } else {
+			img = img_full;
+		}
+    }
 
         itemsList.push({ value, type, img });
     }
