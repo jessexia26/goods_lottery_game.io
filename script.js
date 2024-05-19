@@ -31,12 +31,13 @@ document.getElementById('loadData').addEventListener('click', async () => {
         const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
         const itemsList = extractItems(xmlDoc);
         const { dollsList, otherItemsList } = filterItems(itemsList);
-		const randomDoll = getRandomItems(dollsList,1)
-		const randomOtherItems = getRandomItems(otherItemsList,14)
+        // Generate random items
+        const randomDoll = getRandomItems(dollsList, 1)[0];
+        const randomOtherItems = getRandomItems(otherItemsList, 14);
 
 		// Extract values from dollsList and otherItemsList
-		const dollValues = dollsList.map(item => item.value);
-		const otherValues = otherItemsList.map(item => item.value);
+		const dollValues = randomDoll.map(item => item.value);
+		const otherValues = randomOtherItems.map(item => item.value);
 
 		// Combine all values into a single list
 		const allValues = [...dollValues, ...otherValues];
