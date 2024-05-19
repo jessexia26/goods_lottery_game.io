@@ -569,7 +569,10 @@ function extractItems(xmlDoc) {
         const name = names[i];
         const value = name.getAttribute('value');
         const type = name.getElementsByTagName('type')[0]?.textContent || null;
-        const img = name.getElementsByTagName('img')[0]?.textContent || null;
+        const img_full = name.getElementsByTagName('img')[0]?.textContent || null;
+		if (img_full.endsWith('.jpeg')) {
+            const img = img_full.slice(0, -5);
+        }
 
         itemsList.push({ value, type, img });
     }
