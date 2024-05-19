@@ -27,9 +27,11 @@ document.getElementById('loadData').addEventListener('click', async () => {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const xmlText = await response.text();
+		console.log(xmlText)
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
         const itemsList = extractItems(xmlDoc);
+		console.log(itemsList)
         const { dollsList, otherItemsList } = filterItems(itemsList);
         // Generate random items
         randomDoll = getRandomItems(dollsList, 1)[0];
@@ -42,8 +44,10 @@ document.getElementById('loadData').addEventListener('click', async () => {
 		// Combine all values into a single list
 		const allValues = [...dollValues, ...otherValues];
 
-		// Display the values in the pool div
-		document.getElementById('pool').textContent = JSON.stringify(allValues, null, 2);
+        // Display the values in the pool div
+        const poolDiv = document.getElementById('pool');
+        poolDiv.textContent = JSON.stringify(allValues, null, 2);
+        poolDiv.style.display = 'block';  // Show the pool div
     } catch (err) {
         console.error('Error:', err);
     }

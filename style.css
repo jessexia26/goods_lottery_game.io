@@ -290,3 +290,14 @@ html body {
     transform: rotate(1turn);
   }
 }
+
+#pool {
+  display: none;
+}
+
+/* Styles for the load data button */
+#loadData {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
