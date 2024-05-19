@@ -555,7 +555,7 @@ const stopJittering = async () => {
 function getPrize(randomDoll,randomOtherItems){
     const lotteryResult = performLottery(randomDoll, randomOtherItems);
     console.log("Lottery Result:", lotteryResult);
-	lotteryResult.image =  "https://wiki.biligame.com/qqlove/%E6%96%87%E4%BB%B6:" + lotteryResult.title;
+	lotteryResult.image =  "https://wiki.biligame.com/qqlove/%E6%96%87%E4%BB%B6:" + result.title;
     return lotteryResult;
 }
 
@@ -571,15 +571,8 @@ function extractItems(xmlDoc) {
         const value = name.getAttribute('value');
         const type = name.getElementsByTagName('type')[0]?.textContent || null;
         const img_full = name.getElementsByTagName('img')[0]?.textContent || null;
-        var index = img_full.indexOf('/150px');
-        if (index !== -1) {
-            img = img_full.slice(0, index);
-        } else {
-			img = img_full;
-		}
+		itemsList.push({ value, type, img });
     }
-
-    itemsList.push({ value, type, img });
     return itemsList;
 }
 
