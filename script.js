@@ -37,8 +37,8 @@ const addAnimClass = ($e, clazz, timing) => {
                 const { dollsList, otherItemsList } = filterItems(itemsList);
                 
                 // Generate random items
-                randomDoll = getRandomItems(dollsList, 1)[0];
-                randomOtherItems = getRandomItems(otherItemsList, 14);
+                const randomDoll = getRandomItems(dollsList, 1)[0];
+                const randomOtherItems = getRandomItems(otherItemsList, 14);
 
                 // Debug logs
                 console.log('Random Doll:', randomDoll);
