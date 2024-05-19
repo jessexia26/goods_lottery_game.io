@@ -573,7 +573,7 @@ function extractItems(xmlDoc) {
         const img_full = name.getElementsByTagName('img')[0]?.textContent || null;
 		var index = img.indexOf('/150px');
 		if (index !== -1) {
-            img = url.slice(0, index);}
+            img = img_full.slice(0, index);}
 		itemsList.push({ value, type, img });
     }
     return itemsList;
