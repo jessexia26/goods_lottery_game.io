@@ -73,7 +73,7 @@ const init = async () => {
 		prize = e;
 		document.querySelector('.prize-container .prize img').src = e.image;
 	});
-
+	console.log(prize);
 	const TITLE = '一番赏';
 	const PRICE = '100星';
 
