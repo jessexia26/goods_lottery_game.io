@@ -73,7 +73,7 @@ const init = async () => {
 		prize = e;
 		document.querySelector('.prize-container .prize img').src = e.image;
 	});
-	console.log(prize);
+	console.log("this is prize", prize);
 	const TITLE = '一番赏';
 	const PRICE = '100星';
 
@@ -557,11 +557,6 @@ const stopJittering = async () => {
 const getPrize = async () => {
     console.log("Random Doll:", randomDoll);
     console.log("Random Other Items:", randomOtherItems);
-
-    if (!randomDoll || !randomOtherItems) {
-        throw new Error('randomDoll or randomOtherItems is not properly assigned.');
-    }
-
     const lotteryResult = performLottery(randomDoll, randomOtherItems);
     console.log("Lottery Result:", lotteryResult);
 
@@ -605,17 +600,17 @@ function getRandomItems(list, count) {
 // Function to perform the lottery with given probabilities
 function performLottery(doll, otherItems) {
     const items = [doll, ...otherItems];
-    const totalItems = items.length;
+
 
     const randomValue = Math.random();
     let selectedItem;
     if (randomValue < 0.02) {
         selectedItem = doll;
     } else {
-        const otherIndex = Math.floor(Math.random() * totalItems);
-        selectedItem = items[otherIndex];
+        const otherIndex = Math.floor(Math.random() * 14);
+        selectedItem = otherItems[otherIndex];
     }
-
+	console.log(selectedItem)
     return {
         image: selectedItem.img,
         title: selectedItem.value
