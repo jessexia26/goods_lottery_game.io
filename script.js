@@ -32,8 +32,8 @@ document.getElementById('loadData').addEventListener('click', async () => {
         const itemsList = extractItems(xmlDoc);
         const { dollsList, otherItemsList } = filterItems(itemsList);
         // Generate random items
-        const randomDoll = getRandomItems(dollsList, 1)[0];
-        const randomOtherItems = getRandomItems(otherItemsList, 14);
+        randomDoll = getRandomItems(dollsList, 1)[0];
+        randomOtherItems = getRandomItems(otherItemsList, 14);
 
 		// Extract values from dollsList and otherItemsList
 		const dollValues = randomDoll.map(item => item.value);
@@ -539,12 +539,18 @@ const stopJittering = async () => {
 
 
 const getPrize = async () => {
-        const lotteryResult = performLottery(randomDoll, randomOtherItems);
-        console.log("Random Doll:", randomDoll);
-        console.log("Random Other Items:", randomOtherItems);
-        console.log("Lottery Result:", lotteryResult);
+    console.log("Random Doll:", randomDoll);
+    console.log("Random Other Items:", randomOtherItems);
 
-        return lotteryResult; }
+    if (!randomDoll || !randomOtherItems) {
+        throw new Error('randomDoll or randomOtherItems is not properly assigned.');
+    }
+
+    const lotteryResult = performLottery(randomDoll, randomOtherItems);
+    console.log("Lottery Result:", lotteryResult);
+
+    return lotteryResult;
+}
 
 
 
@@ -569,6 +575,7 @@ function extractItems(xmlDoc) {
 function filterItems(itemsList) {
     const dollsList = itemsList.filter(item => item.type === "玩偶");
     const otherItemsList = itemsList.filter(item => item.type !== "玩偶");
+	console.log(otherItemsList)
     return { dollsList, otherItemsList };
 }
 
