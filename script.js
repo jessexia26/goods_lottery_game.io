@@ -53,14 +53,10 @@ const addAnimClass = ($e, clazz, timing) => {
                 // Display the values in the pool div
 				const firstDiv = document.getElementById('first')
                 firstDiv.textContent = dollValue;
-                firstDiv.style.display = 'block';  // Show the first div
                 const poolDiv = document.getElementById('pool');
                 poolDiv.textContent = JSON.stringify(otherValues, null, 2);
-                poolDiv.style.display = 'block';  // Show the pool div
-				getPrize().then(e => {
-					prize = e;
-					document.querySelector('.prize-container .prize img').src = e.image;
-				});
+				prize = getPrize()
+				document.querySelector('.prize-container .prize img').src = prize.image
 				console.log(prize)
 
             } catch (err) {
