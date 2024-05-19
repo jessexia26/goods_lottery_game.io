@@ -565,7 +565,7 @@ function getPrize(randomDoll,randomOtherItems){
 function extractItems(xmlDoc) {
     const names = xmlDoc.getElementsByTagName('name');
     const itemsList = [];
-
+	const img = null;
     for (let i = 0; i < names.length; i++) {
         const name = names[i];
         const value = name.getAttribute('value');
@@ -573,7 +573,10 @@ function extractItems(xmlDoc) {
         const img_full = name.getElementsByTagName('img')[0]?.textContent || null;
 		var index = img_full.indexOf('/150px');
 		if (index !== -1) {
-            const img = img_full.slice(0, index);}
+            img = img_full.slice(0, index);}
+		else{
+		    img = img_full
+		}
 		itemsList.push({ value, type, img });
     }
     return itemsList;
