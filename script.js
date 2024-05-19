@@ -45,9 +45,10 @@ const addAnimClass = ($e, clazz, timing) => {
                 console.log('Random Other Items:', randomOtherItems);
 
                 // Extract values from dollsList and otherItemsList
-                const dollValue = randomDoll ? randomDoll.value : null;
+                const dollValue = randomDoll.value;
                 const otherValues = randomOtherItems.map(item => item.value);
-
+                console.log('Random Doll value:', dollValue);
+                console.log('Random Other vaules:', otherValues);
 
                 // Display the values in the pool div
 				const firstDiv = document.getElementById('first')
