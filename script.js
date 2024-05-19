@@ -20,38 +20,47 @@ const addAnimClass = ($e, clazz, timing) => {
 	}
 }
 
-document.getElementById('loadData').addEventListener('click', async () => {
-    try {
-        const response = await fetch('./data/trim_data.xml');
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+
+        // Define the async function
+        async function loadData() {
+            try {
+                const response = await fetch('./data/trim_data.xml');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const xmlText = await response.text();
+                console.log(xmlText);
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+                const itemsList = extractItems(xmlDoc);
+                console.log(itemsList);
+                const { dollsList, otherItemsList } = filterItems(itemsList);
+                
+                // Generate random items
+                randomDoll = getRandomItems(dollsList, 1)[0];
+                randomOtherItems = getRandomItems(otherItemsList, 14);
+
+                // Debug logs
+                console.log('Random Doll:', randomDoll);
+                console.log('Random Other Items:', randomOtherItems);
+
+                // Extract values from dollsList and otherItemsList
+                const dollValue = randomDoll ? randomDoll.value : null;
+                const otherValues = randomOtherItems.map(item => item.value);
+
+                // Combine all values into a single list
+                const allValues = dollValue ? [dollValue, ...otherValues] : [...otherValues];
+
+                // Display the values in the pool div
+                const poolDiv = document.getElementById('pool');
+                poolDiv.textContent = JSON.stringify(allValues, null, 2);
+                poolDiv.style.display = 'block';  // Show the pool div
+
+            } catch (err) {
+                console.error('Error:', err);
+            }
         }
-        const xmlText = await response.text();
-		console.log(xmlText)
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
-        const itemsList = extractItems(xmlDoc);
-		console.log(itemsList)
-        const { dollsList, otherItemsList } = filterItems(itemsList);
-        // Generate random items
-        randomDoll = getRandomItems(dollsList, 1)[0];
-        randomOtherItems = getRandomItems(otherItemsList, 14);
 
-		// Extract values from dollsList and otherItemsList
-		const dollValues = randomDoll.map(item => item.value);
-		const otherValues = randomOtherItems.map(item => item.value);
-
-		// Combine all values into a single list
-		const allValues = [...dollValues, ...otherValues];
-
-        // Display the values in the pool div
-        const poolDiv = document.getElementById('pool');
-        poolDiv.textContent = JSON.stringify(allValues, null, 2);
-        poolDiv.style.display = 'block';  // Show the pool div
-    } catch (err) {
-        console.error('Error:', err);
-    }
-});
 
 
 const init = async () => {
@@ -75,6 +84,7 @@ const init = async () => {
   $machine.querySelector('.price').innerText = PRICE;
   
 	createBalls();
+	loadData();
 
 	gsap.set($machine, {
 		y: '100vh'
