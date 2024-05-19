@@ -550,7 +550,7 @@ const stopJittering = async () => {
 }
 
 
-const getPrize = async () => {
+function getPrize(){
     const lotteryResult = performLottery(randomDoll, randomOtherItems);
     console.log("Lottery Result:", lotteryResult);
 
