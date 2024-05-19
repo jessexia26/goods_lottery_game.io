@@ -291,7 +291,7 @@ html body {
   }
 }
 
-#pool #first #popup{
+#pool #first #popup #notice{
   display: none;
 }
 
