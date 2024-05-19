@@ -570,7 +570,7 @@ function extractItems(xmlDoc) {
         const name = names[i];
         const value = name.getAttribute('value');
         const type = name.getElementsByTagName('type')[0]?.textContent || null;
-        const img_full = name.getElementsByTagName('img')[0]?.textContent || null;
+        const img = name.getElementsByTagName('img')[0]?.textContent || null;
 		itemsList.push({ value, type, img });
     }
     return itemsList;
