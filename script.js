@@ -620,3 +620,20 @@ function performLottery(doll, otherItems) {
 
 
 init();
+
+
+document.addEventListener("DOMContentLoaded", function() {
+	var firstElement = document.getElementById("first");
+	var otherElement = document.getElementById("pool");
+
+	if (firstElement.textContent && otherElement.textContent) {
+		var popup = document.getElementById("popup");
+		popup.querySelector(".first").textContent = firstElement.textContent;
+		popup.querySelector(".other").textContent = otherElement.textContent;
+		popup.style.display = "block";
+		
+		setTimeout(function() {
+			popup.style.display = "none";
+		}, 3000); // 3 seconds
+	}
+});
