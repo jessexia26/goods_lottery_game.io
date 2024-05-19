@@ -1,10 +1,3 @@
-let randomDoll;
-let randomOtherItems;
-let balls = [], started = false, prizeBall;
-let $app, $machine, $handle, $balls, $title, $pointer;
-let $$jitters = [];
-let prize;
-const SPEED = 1;
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 const addAnimClass = ($e, clazz, timing) => {
@@ -47,6 +40,13 @@ document.getElementById('loadData').addEventListener('click', async () => {
         console.error('Error:', err);
     }
 });
+let randomDoll;
+let randomOtherItems;
+let balls = [], started = false, prizeBall;
+let $app, $machine, $handle, $balls, $title, $pointer;
+let $$jitters = [];
+let prize;
+const SPEED = 1;
 
 
 const init = async () => {
