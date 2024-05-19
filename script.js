@@ -555,7 +555,7 @@ const stopJittering = async () => {
 function getPrize(randomDoll,randomOtherItems){
     const lotteryResult = performLottery(randomDoll, randomOtherItems);
     console.log("Lottery Result:", lotteryResult);
-	lotteryResult.image =  "https://wiki.biligame.com/qqlove/%E6%96%87%E4%BB%B6:" + result.title;
+	lotteryResult.image =  "https://wiki.biligame.com/qqlove/%E6%96%87%E4%BB%B6:" + lotteryResult.title;
     return lotteryResult;
 }
 
