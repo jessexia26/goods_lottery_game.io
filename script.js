@@ -571,9 +571,9 @@ function extractItems(xmlDoc) {
         const value = name.getAttribute('value');
         const type = name.getElementsByTagName('type')[0]?.textContent || null;
         const img_full = name.getElementsByTagName('img')[0]?.textContent || null;
-		var index = img.indexOf('/150px');
+		var index = img_full.indexOf('/150px');
 		if (index !== -1) {
-            img = img_full.slice(0, index);}
+            const img = img_full.slice(0, index);}
 		itemsList.push({ value, type, img });
     }
     return itemsList;
