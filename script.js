@@ -50,12 +50,14 @@ const addAnimClass = ($e, clazz, timing) => {
                 console.log('Random Doll value:', dollValue);
                 console.log('Random Other vaules:', otherValues);
 
-                // Display the values in the pool div
+                // Display the values in the pool di
+				console.log('Random Doll:', randomDoll);
+				console.log('Random Other Items:', randomOtherItems);
+				prize = getPrize(randomDoll,randomOtherItems);
 				const firstDiv = document.getElementById('first')
                 firstDiv.textContent = dollValue;
                 const poolDiv = document.getElementById('pool');
                 poolDiv.textContent = JSON.stringify(otherValues, null, 2);
-				prize = getPrize(randomDoll,randomOtherItems);
 				document.querySelector('.prize-container .prize img').src = prize.image
 				console.log(prize)
 
@@ -553,7 +555,6 @@ const stopJittering = async () => {
 function getPrize(randomDoll,randomOtherItems){
     const lotteryResult = performLottery(randomDoll, randomOtherItems);
     console.log("Lottery Result:", lotteryResult);
-
     return lotteryResult;
 }
 
