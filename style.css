@@ -310,16 +310,19 @@ html body {
   box-shadow: 0 0 10px rgba(255, 119, 35, 0.5);
   z-index: 1000;
   font-family: inherit;
+  color: #e288bb;
 }
 #app.gotcha .container .game-layer .popup .first {
   display: none;
-  color: orangered;
+  color: #f06e5b;
   font-family: inherit;
   z-index: 1000;
+  text-align: center;
+  font-size: 5vh;
 }
 #app.gotcha .container .game-layer .popup .pool {
   display: none;
-  color: orangered;
+  color: #ad8bd6;
   font-family: inherit;
   z-index: 1000;
 }
