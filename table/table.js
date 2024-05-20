@@ -19,29 +19,6 @@ async function fetchAndParseXML() {
     }
 }
 
-function extractItems(xmlDoc) {
-    const items = [];
-    const itemElements = xmlDoc.getElementsByTagName('item');
-    for (let itemElement of itemElements) {
-        const name = itemElement.getElementsByTagName('name')[0].textContent;
-        const type = itemElement.getElementsByTagName('type')[0].textContent;
-        const price = itemElement.getElementsByTagName('price')[0].textContent;
-        const imgSrc = itemElement.getElementsByTagName('img')[0].getAttribute('src');
-        const imgAlt = itemElement.getElementsByTagName('img')[0].getAttribute('alt');
-
-        items.push({
-            name,
-            type,
-            price,
-            img: {
-                src: imgSrc,
-                alt: imgAlt
-            }
-        });
-    }
-    return items;
-}
-
 function populateTable(items) {
     const tableBody = document.getElementById('itemTableBody');
     tableBody.innerHTML = ''; // 清空表格内容
