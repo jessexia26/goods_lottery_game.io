@@ -1,88 +1,47 @@
-document.addEventListener('DOMContentLoaded', function() {
-    populateFilterOptions();
-    populateTable();
+async function fetchAndParseXML() {
+    try {
+        const response = await fetch('../data/rawdata.xml');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const xmlText = await response.text();
+        console.log(xmlText);
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+        const itemsList = extractItems(xmlDoc);
 
-    // 确保元素存在并绑定事件
-    const exportButton = document.getElementById('export');
-    if (exportButton) {
-        exportButton.addEventListener('click', async function() {
-            const { ExcelJS } = window;
+        // 假设 extractItems 返回一个数组格式的数据
+        populateTable(itemsList);
+        populateFilterOptions(itemsList);
+    } catch (error) {
+        console.error('Error fetching and parsing XML:', error);
+    }
+}
 
-            const workbook = new ExcelJS.Workbook();
-            const worksheet = workbook.addWorksheet('Goods');
+function extractItems(xmlDoc) {
+    const items = [];
+    const itemElements = xmlDoc.getElementsByTagName('item');
+    for (let itemElement of itemElements) {
+        const name = itemElement.getElementsByTagName('name')[0].textContent;
+        const type = itemElement.getElementsByTagName('type')[0].textContent;
+        const price = itemElement.getElementsByTagName('price')[0].textContent;
+        const imgSrc = itemElement.getElementsByTagName('img')[0].getAttribute('src');
+        const imgAlt = itemElement.getElementsByTagName('img')[0].getAttribute('alt');
 
-            // 添加表头
-            worksheet.columns = [
-                { header: '名字', key: 'name', width: 30 },
-                { header: '类型', key: 'type', width: 15 },
-                { header: '价格', key: 'price', width: 10 },
-                { header: '图片', key: 'img', width: 30 }
-            ];
-
-            // 遍历表格行
-            const table = document.getElementById('goods');
-            const rows = table.rows;
-
-            for (let i = 1; i < rows.length; i++) {  // 从1开始跳过表头
-                const name = rows[i].cells[0].innerText;
-                const type = rows[i].cells[1].innerText;
-                const price = rows[i].cells[2].innerText;
-                const img = rows[i].cells[3].getElementsByTagName('img')[0];
-                const imgSrc = img.src;
-
-                const row = worksheet.addRow({ name, type, price });
-
-                // 插入图片到Excel单元格
-                const response = await fetch(imgSrc);
-                const buffer = await response.arrayBuffer();
-                const imageId = workbook.addImage({
-                    buffer,
-                    extension: 'png',
-                });
-
-                worksheet.addImage(imageId, {
-                    tl: { col: 3, row: i },  // top-left corner
-                    ext: { width: 100, height: 100 }  // extent (size)
-                });
+        items.push({
+            name,
+            type,
+            price,
+            img: {
+                src: imgSrc,
+                alt: imgAlt
             }
-
-            // 保存工作簿
-            const buf = await workbook.xlsx.writeBuffer();
-            saveAs(new Blob([buf]), 'goods_table.xlsx');
         });
-    } else {
-        console.error("Export button with ID 'export' not found.");
     }
-});
+    return items;
+}
 
-const items = [
-    {
-        "name": "第二弹·PVC海报一段·夏鸣星",
-        "role": "夏鸣星",
-        "type": "海报",
-        "price": "20",
-        "source": "网店",
-        "remark": "网店常驻",
-        "img": {
-            "alt": "第二弹·PVC海报一段·夏鸣星.png",
-            "src": "https://patchwiki.biligame.com/images/qqlove/thumb/b/be/9uuf7e4mw7sl2jw4lnrksjt1k24x64w.png/150px-%E7%AC%AC%E4%BA%8C%E5%BC%B9%C2%B7PVC%E6%B5%B7%E6%8A%A5%E4%B8%80%E6%AE%B5%C2%B7%E5%A4%8F%E9%B8%A3%E6%98%9F.png.jpeg"
-        }
-    },
-    {
-        "name": "第二弹·PVC海报一段·夏鸣星",
-        "role": "夏鸣星",
-        "type": "吧唧",
-        "price": "20",
-        "source": "网店",
-        "remark": "网店常驻",
-        "img": {
-            "alt": "第二弹·PVC海报一段·夏鸣星.png",
-            "src": "https://patchwiki.biligame.com/images/qqlove/thumb/b/be/9uuf7e4mw7sl2jw4lnrksjt1k24x64w.png/150px-%E7%AC%AC%E4%BA%8C%E5%BC%B9%C2%B7PVC%E6%B5%B7%E6%8A%A5%E4%B8%80%E6%AE%B5%C2%B7%E5%A4%8F%E9%B8%A3%E6%98%9F.png.jpeg"
-        }
-    }
-];
-
-function populateTable() {
+function populateTable(items) {
     const tableBody = document.getElementById('itemTableBody');
     tableBody.innerHTML = ''; // 清空表格内容
 
@@ -102,8 +61,9 @@ function populateTable() {
     });
 }
 
-function populateFilterOptions() {
+function populateFilterOptions(items) {
     const typeFilter = document.getElementById('typeFilter');
+    typeFilter.innerHTML = '<option value="all">所有</option>'; // 先清空选项
     const types = [...new Set(items.map(item => item.type))]; // 获取所有类型并去重
     types.forEach(type => {
         const option = document.createElement('option');
@@ -114,5 +74,58 @@ function populateFilterOptions() {
 }
 
 function filterTable() {
-    populateTable();
+    const items = extractItemsFromCurrentState(); // 假设你有一个函数可以从当前状态中提取 items
+    populateTable(items);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    fetchAndParseXML();
+    document.getElementById('typeFilter').addEventListener('change', filterTable);
+    document.getElementById('export').addEventListener('click', exportTable);
+});
+
+async function exportTable() {
+    const { ExcelJS } = window;
+
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Goods');
+
+    // 添加表头
+    worksheet.columns = [
+        { header: '名字', key: 'name', width: 30 },
+        { header: '类型', key: 'type', width: 15 },
+        { header: '价格', key: 'price', width: 10 },
+        { header: '图片', key: 'img', width: 30 }
+    ];
+
+    // 遍历表格行
+    const table = document.getElementById('goods');
+    const rows = table.rows;
+
+    for (let i = 1; i < rows.length; i++) {  // 从1开始跳过表头
+        const name = rows[i].cells[0].innerText;
+        const type = rows[i].cells[1].innerText;
+        const price = rows[i].cells[2].innerText;
+        const img = rows[i].cells[3].getElementsByTagName('img')[0];
+        const imgSrc = img.src;
+
+        const row = worksheet.addRow({ name, type, price });
+
+        // 插入图片到Excel单元格
+        const response = await fetch(imgSrc);
+        const buffer = await response.arrayBuffer();
+        const imageId = workbook.addImage({
+            buffer,
+            extension: 'png',
+        });
+
+        worksheet.addImage(imageId, {
+            tl: { col: 3, row: i },  // top-left corner
+            ext: { width: 100, height: 100 }  // extent (size)
+        });
+    }
+
+    // 保存工作簿
+    const buf = await workbook.xlsx.writeBuffer();
+    saveAs(new Blob([buf]), 'goods_table.xlsx');
 }

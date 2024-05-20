@@ -1,5 +1,17 @@
 /* 定义按钮容器样式和定位 */
 @import url("https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap");
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: inherit;
+}
+
+
+
 .top-buttons {
     z-index: 1000;
     position: absolute;
@@ -25,6 +37,15 @@
     z-index: 1000;
     background-color: #94cbff6c;
     font-family: inherit;
+}
+
+
+
+h1 {
+    margin-bottom: 20px;
+}
+label, select {
+    margin-bottom: 20px;
 }
 
 table {
