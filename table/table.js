@@ -30,6 +30,7 @@ function extractItems(xmlDoc) {
         const value = name.getAttribute('value');
         const type = name.getElementsByTagName('type')[0]?.textContent || null;
         const img_full = name.getElementsByTagName('img')[0]?.textContent || null;
+        const price = name.getElementsByTagName('price')[0].textContent || null;
 		var index = img_full.indexOf('/150px');
 		if (index !== -1) {
             img_new = img_full.slice(0, index);}
@@ -43,7 +44,7 @@ function extractItems(xmlDoc) {
 		else{
 			img = img_new;
 		}
-		itemsList.push({ value, type, img });
+		itemsList.push({ value, type, price, img});
     }
     return itemsList;
 }
@@ -58,10 +59,10 @@ function populateTable(items) {
         if (typeFilter === 'all' || item.type === typeFilter) {
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td>${item.name}</td>
+                <td>${item.value}</td>
                 <td>${item.type}</td>
                 <td>${item.price}</td>
-                <td><img src="${item.img.src}" alt="${item.img.alt}"></td>
+                <td><img src="${item.img.src}" alt="${item.value}"></td>
             `;
             tableBody.appendChild(row);
         }
