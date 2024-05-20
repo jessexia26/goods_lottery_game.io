@@ -1,7 +1,7 @@
 let itemsList;
 async function fetchAndParseXML() {
     try {
-        const response = await fetch('../data/raw_items.xml');
+        const response = await fetch('../data/products.xml');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
