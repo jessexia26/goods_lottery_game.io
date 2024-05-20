@@ -1,4 +1,8 @@
 /*
+(async () => {
+    let response = await fetch('../data/raw_data.xml');
+    console.log(response);
+})();
 const response = await fetch('../data/raw_data.xml');
 if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
