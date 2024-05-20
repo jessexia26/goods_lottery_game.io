@@ -327,3 +327,29 @@ html body {
   font-family: inherit;
   z-index: 1000;
 }
+
+
+/* 定义按钮容器样式和定位 */
+        .top-buttons {
+          position: absolute;
+          top: 10px;
+          left: 10px;
+          display: flex;
+          gap: 10px;
+          font-family: inherit;
+      }
+
+      .top-buttons button {
+          padding: 10px 20px;
+          background-color: rgba(255, 255, 255, 0.692);
+          color: #ad8bd6;
+          border: none;
+          cursor: pointer;
+          font-size: 16px;
+          font-family: inherit;
+      }
+
+      .top-buttons button:hover {
+          background-color: #e288bb;
+          font-family: inherit;
+      }
