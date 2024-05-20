@@ -19,6 +19,35 @@ async function fetchAndParseXML() {
     }
 }
 
+// Function to extract items from parsed XML
+function extractItems(xmlDoc) {
+    const names = xmlDoc.getElementsByTagName('name');
+    const itemsList = [];
+	let img;
+	let img_new;
+    for (let i = 0; i < names.length; i++) {
+        const name = names[i];
+        const value = name.getAttribute('value');
+        const type = name.getElementsByTagName('type')[0]?.textContent || null;
+        const img_full = name.getElementsByTagName('img')[0]?.textContent || null;
+		var index = img_full.indexOf('/150px');
+		if (index !== -1) {
+            img_new = img_full.slice(0, index);}
+		else{
+		    img_new = img_full
+		}
+		var indexThumb = img_new.indexOf('thumb');
+        if (indexThumb !== -1) {
+            img = img_new.slice(0, indexThumb) + img_new.slice(indexThumb + 5);
+        }
+		else{
+			img = img_new;
+		}
+		itemsList.push({ value, type, img });
+    }
+    return itemsList;
+}
+
 function populateTable(items) {
     const tableBody = document.getElementById('itemTableBody');
     tableBody.innerHTML = ''; // 清空表格内容
