@@ -1,3 +1,4 @@
+let itemsList;
 async function fetchAndParseXML() {
     try {
         const response = await fetch('../data/raw_items.xml');
@@ -9,7 +10,7 @@ async function fetchAndParseXML() {
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
         const itemsList = extractItems(xmlDoc);
-
+        console.log(itemsList);
         // 假设 extractItems 返回一个数组格式的数据
         populateTable(itemsList);
         populateFilterOptions(itemsList);
