@@ -636,7 +636,7 @@ function showNotice() {
 	if (firstElement.textContent && otherElement.textContent) {
 		var popup = document.getElementById("popup");
 		popup.querySelector(".first").textContent = firstElement.textContent;
-		popup.querySelector(".other").textContent = otherElement.textContent;
+		popup.querySelector(".pool").textContent = otherElement.textContent;
 		popup.style.display = "block";
 		
 		setTimeout(function() {
