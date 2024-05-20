@@ -304,14 +304,22 @@ html body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(255, 255, 255, 0.575);
+  background-color: rgba(255, 255, 255, 0.692);
   border: transparent;
   padding: 20px;
   box-shadow: 0 0 10px rgba(255, 119, 35, 0.5);
   z-index: 1000;
   font-family: inherit;
 }
-#popup .first {
+#app.gotcha .container .game-layer .popup .first {
+  display: none;
   color: orangered;
   font-family: inherit;
+  z-index: 1000;
+}
+#app.gotcha .container .game-layer .popup .pool {
+  display: none;
+  color: orangered;
+  font-family: inherit;
+  z-index: 1000;
 }

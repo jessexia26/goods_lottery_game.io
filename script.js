@@ -633,10 +633,10 @@ function showNotice(first,pool) {
 
 	if (first && pool) {
 		var popup = document.getElementById("popup");
+		var firstDiv = document.getElementById
 		popup.querySelector(".first").textContent = first;
 		popup.querySelector(".pool").textContent = pool;
-		popup.style.display = "block";
-		
+		popup.style.display = "block";	
 		setTimeout(function() {
 			popup.style.display = "none";
 		}, 3000); // 3 seconds
