@@ -58,7 +58,7 @@ const addAnimClass = ($e, clazz, timing) => {
                 firstDiv.textContent = dollValue;
                 const poolDiv = document.getElementById('pool');
                 poolDiv.textContent = JSON.stringify(otherValues, null, 2);
-				showNotice();
+				showNotice(firstDiv.textContent,poolDiv.textContent);
 				document.querySelector('.prize-container .prize img').src = prize.image
 				console.log(prize)
 
@@ -629,14 +629,12 @@ function performLottery(doll, otherItems) {
 init();
 
 
-function showNotice() {
-	var firstElement = document.getElementById("first");
-	var otherElement = document.getElementById("pool");
+function showNotice(first,pool) {
 
-	if (firstElement.textContent && otherElement.textContent) {
+	if (first && pool) {
 		var popup = document.getElementById("popup");
-		popup.querySelector(".first").textContent = firstElement.textContent;
-		popup.querySelector(".pool").textContent = otherElement.textContent;
+		popup.querySelector(".first").textContent = first;
+		popup.querySelector(".pool").textContent = pool;
 		popup.style.display = "block";
 		
 		setTimeout(function() {
