@@ -304,12 +304,14 @@ html body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
-  border: 2px solid black;
+  background-color: rgba(255, 255, 255, 0.575);
+  border: transparent;
   padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px rgba(255, 119, 35, 0.5);
   z-index: 1000;
+  font-family: inherit;
 }
 #popup .first {
-  color: red;
+  color: orangered;
+  font-family: inherit;
 }
