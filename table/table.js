@@ -22,18 +22,16 @@ async function fetchAndParseXML() {
 // Function to extract items from parsed XML
 function extractItems(xmlDoc) {
     const names = xmlDoc.getElementsByTagName('name');
-    const itemsList = [];
-	let img;
-	let img_new;
+    const itemsnewList = [];
     for (let i = 0; i < names.length; i++) {
         const name = names[i];
         const value = name.getAttribute('value');
         const type = name.getElementsByTagName('type')[0]?.textContent || null;
         const img = name.getElementsByTagName('img')[0]?.textContent || null;
         const price = name.getElementsByTagName('price')[0].textContent || null;
-		itemsList.push({ value, type, price, img});
+		itemsnewList.push({ value, type, price, img});
     }
-    return itemsList;
+    return itemsnewList;
 }
 
 function populateTable(items) {
@@ -68,9 +66,10 @@ function populateFilterOptions(items) {
     });
 }
 
-function filterTable() {
-        populateTable(itemsList);
-        }
+function filterTable(){
+    console.log(itemsList);
+    populateTable(itemsList);
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     fetchAndParseXML();
