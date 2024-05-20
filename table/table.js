@@ -6,66 +6,54 @@ document.addEventListener('DOMContentLoaded', function() {
     const exportButton = document.getElementById('export');
     if (exportButton) {
         exportButton.addEventListener('click', async function() {
-            // 获取表格
-            const table = document.getElementById('goods');
-            const workbook = XLSX.utils.table_to_book(table);
+            const { ExcelJS } = window;
 
-            // 遍历表格单元格以查找图像并添加到工作簿中
-            const ws = workbook.Sheets[workbook.SheetNames[0]];
+            const workbook = new ExcelJS.Workbook();
+            const worksheet = workbook.addWorksheet('Goods');
+
+            // 添加表头
+            worksheet.columns = [
+                { header: '名字', key: 'name', width: 30 },
+                { header: '类型', key: 'type', width: 15 },
+                { header: '价格', key: 'price', width: 10 },
+                { header: '图片', key: 'img', width: 30 }
+            ];
+
+            // 遍历表格行
+            const table = document.getElementById('goods');
             const rows = table.rows;
 
             for (let i = 1; i < rows.length; i++) {  // 从1开始跳过表头
-                const imgCell = rows[i].cells[3].getElementsByTagName('img')[0];
-                if (imgCell) {
-                    const imgSrc = imgCell.src;
+                const name = rows[i].cells[0].innerText;
+                const type = rows[i].cells[1].innerText;
+                const price = rows[i].cells[2].innerText;
+                const img = rows[i].cells[3].getElementsByTagName('img')[0];
+                const imgSrc = img.src;
 
-                    // 使用fetch将图片转换为Base64
-                    const blob = await fetch(imgSrc).then(res => res.blob());
-                    const reader = new FileReader();
-                    reader.readAsDataURL(blob);
-                    await new Promise(resolve => reader.onloadend = resolve);
-                    const base64data = reader.result;
+                const row = worksheet.addRow({ name, type, price });
 
-                    // 插入图片到Excel单元格
-                    const cell_ref = XLSX.utils.encode_cell({ c: 3, r: i });
-                    if (!ws['!images']) ws['!images'] = [];
-                    ws['!images'].push({
-                        image: base64data,
-                        type: 'image',
-                        position: {
-                            type: 'absoluteAnchor',
-                            from: {
-                                col: 3,
-                                colOff: 0,
-                                row: i,
-                                rowOff: 0
-                            },
-                            to: {
-                                col: 4,
-                                colOff: 0,
-                                row: i + 1,
-                                rowOff: 0
-                            }
-                        }
-                    });
-                }
+                // 插入图片到Excel单元格
+                const response = await fetch(imgSrc);
+                const buffer = await response.arrayBuffer();
+                const imageId = workbook.addImage({
+                    buffer,
+                    extension: 'png',
+                });
+
+                worksheet.addImage(imageId, {
+                    tl: { col: 3, row: i },  // top-left corner
+                    ext: { width: 100, height: 100 }  // extent (size)
+                });
             }
 
             // 保存工作簿
-            const wbout = XLSX.write(workbook, { bookType: 'xlsx', type: 'binary' });
-            saveAs(new Blob([s2ab(wbout)], { type: 'application/octet-stream' }), 'goods_table.xlsx');
+            const buf = await workbook.xlsx.writeBuffer();
+            saveAs(new Blob([buf]), 'goods_table.xlsx');
         });
     } else {
         console.error("Export button with ID 'export' not found.");
     }
 });
-
-function s2ab(s) {
-    const buf = new ArrayBuffer(s.length);
-    const view = new Uint8Array(buf);
-    for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
-    return buf;
-}
 
 const items = [
     {
