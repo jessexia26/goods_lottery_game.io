@@ -69,9 +69,8 @@ function populateFilterOptions(items) {
 }
 
 function filterTable() {
-    const items = extractItemsFromCurrentState(); // 假设你有一个函数可以从当前状态中提取 items
-    populateTable(items);
-}
+        populateTable(itemsList);
+        }
 
 document.addEventListener('DOMContentLoaded', () => {
     fetchAndParseXML();
