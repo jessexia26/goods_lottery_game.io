@@ -633,12 +633,17 @@ function showNotice(first,pool) {
 
 	if (first && pool) {
 		var popup = document.getElementById("popup");
-		var firstDiv = document.getElementById
+		var firstSpan = popup.querySelector('.first');
+		var poolSpan = popup.querySelector('.pool');
 		popup.querySelector(".first").textContent = first;
 		popup.querySelector(".pool").textContent = pool;
-		popup.style.display = "block";	
+		popup.style.display = "block";
+		firstSpan.style.display = 'inline';
+		poolSpan.style.display = 'inline';	
 		setTimeout(function() {
 			popup.style.display = "none";
+			firstSpan.style.display = 'none';
+			poolSpan.style.display = 'none';	
 		}, 3000); // 3 seconds
 	}
 };
