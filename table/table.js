@@ -49,7 +49,7 @@ function populateTable(items) {
                 <td>${item.value}</td>
                 <td>${item.type}</td>
                 <td>${item.price}</td>
-                <td><img src="${item.img.src}" alt="${item.value}"></td>
+                <td><img src="${item.img}" alt="${item.value}"></td>
             `;
             tableBody.appendChild(row);
         }
