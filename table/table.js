@@ -81,18 +81,6 @@ const items = [
         }
     },
     {
-        "name": "第三弹·PVC海报一段·秋鸣星",
-        "role": "秋鸣星",
-        "type": "海报",
-        "price": "25",
-        "source": "网店",
-        "remark": "网店常驻",
-        "img": {
-            "alt": "第三弹·PVC海报一段·秋鸣星.png",
-            "src": "https://example.com/images/another_image.png"
-        }
-    },
-    {
         "name": "第二弹·PVC海报一段·夏鸣星",
         "role": "夏鸣星",
         "type": "吧唧",
