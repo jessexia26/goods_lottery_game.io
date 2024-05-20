@@ -1,6 +1,6 @@
 async function fetchAndParseXML() {
     try {
-        const response = await fetch('../data/raw_data.xml');
+        const response = await fetch('../data/raw_items.xml');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
