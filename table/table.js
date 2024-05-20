@@ -1,4 +1,5 @@
-let itemsList;
+let itemsList = [];
+
 async function fetchAndParseXML() {
     try {
         const response = await fetch('../data/products.xml');
@@ -9,7 +10,7 @@ async function fetchAndParseXML() {
         console.log(xmlText);
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
-        const itemsList = extractItems(xmlDoc);
+        itemsList = extractItems(xmlDoc);
         console.log(itemsList);
         // 假设 extractItems 返回一个数组格式的数据
         populateTable(itemsList);
@@ -26,10 +27,10 @@ function extractItems(xmlDoc) {
     for (let i = 0; i < names.length; i++) {
         const name = names[i];
         const value = name.getAttribute('value');
-        const type = name.getElementsByTagName('type')[0]?.textContent || null;
-        const img = name.getElementsByTagName('img')[0]?.textContent || null;
-        const price = name.getElementsByTagName('price')[0].textContent || null;
-		itemsnewList.push({ value, type, price, img});
+        const type = name.getElementsByTagName('type')[0]?.textContent || '';
+        const img = name.getElementsByTagName('img')[0]?.textContent || '';
+        const price = name.getElementsByTagName('price')[0]?.textContent || '';
+        itemsnewList.push({ value, type, price, img });
     }
     return itemsnewList;
 }
@@ -47,7 +48,7 @@ function populateTable(items) {
                 <td>${item.value}</td>
                 <td>${item.type}</td>
                 <td>${item.price}</td>
-                <td><img src="${item.img}" alt="${item.value}"></td>
+                <td><img src="${item.img}" alt="${item.value}" width="50"></td>
             `;
             tableBody.appendChild(row);
         }
@@ -79,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function exportTable() {
     const { ExcelJS } = window;
-
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet('Goods');
 
@@ -92,10 +92,10 @@ async function exportTable() {
     ];
 
     // 遍历表格行
-    const table = document.getElementById('goods');
+    const table = document.getElementById('itemTableBody');
     const rows = table.rows;
 
-    for (let i = 1; i < rows.length; i++) {  // 从1开始跳过表头
+    for (let i = 0; i < rows.length; i++) {
         const name = rows[i].cells[0].innerText;
         const type = rows[i].cells[1].innerText;
         const price = rows[i].cells[2].innerText;
@@ -113,8 +113,8 @@ async function exportTable() {
         });
 
         worksheet.addImage(imageId, {
-            tl: { col: 3, row: i },  // top-left corner
-            ext: { width: 100, height: 100 }  // extent (size)
+            tl: { col: 3, row: i + 1 },
+            ext: { width: 100, height: 100 }
         });
     }
 
