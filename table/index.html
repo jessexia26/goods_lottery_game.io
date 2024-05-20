@@ -3,25 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Item Table with Filter</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
-        img {
-            width: 150px;
-        }
-    </style>
+    <title>谷子图鉴</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <h1>Item Table with Filter</h1>
-    <label for="typeFilter">Filter by Type:</label>
+    <h1>品类筛选</h1>
+    <label for="typeFilter">筛选品类:</label>
     <select id="typeFilter" onchange="filterTable()">
         <option value="all">All</option>
     </select>
